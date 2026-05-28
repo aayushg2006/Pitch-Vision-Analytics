@@ -1,0 +1,66 @@
+services:
+  pipeline:
+    profiles: ["manual"]
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    command: ["python", "ml/scripts/build_all.py"]
+    volumes:
+      - ./:/workspace
+    working_dir: /workspace
+
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile
+    environment:
+      APP_DATA_DIR: /workspace/data
+      APP_ARTIFACTS_DIR: /workspace/artifacts
+      OLLAMA_HOST: http://ollama:11434
+      OLLAMA_MODEL: tinyllama
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/workspace
+    working_dir: /workspace
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health')"]
+      interval: 20s
+      timeout: 5s
+      retries: 6
+      start_period: 45s
+
+  ollama:
+    profiles: ["llm"]
+    image: ollama/ollama:0.6.8
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+
+  ollama-init:
+    profiles: ["llm"]
+    image: curlimages/curl:8.12.1
+    depends_on:
+      - ollama
+    entrypoint:
+      - sh
+      - -c
+      - |
+        sleep 10
+        curl -fsS http://ollama:11434/api/pull -d '{"name":"tinyllama"}' || true
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      args:
+        VITE_API_BASE_URL: http://localhost:8000/api/v1
+    ports:
+      - "4173:80"
+    depends_on:
+      api:
+        condition: service_healthy
+
+volumes:
+  ollama-data:

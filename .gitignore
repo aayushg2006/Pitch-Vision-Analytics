@@ -1,0 +1,41 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environments
+.venv/
+.venv313/
+venv/
+env/
+
+# Node / frontend
+node_modules/
+dist/
+build/
+apps/web/dist/
+
+# Environment files
+.env
+.env.*
+
+# Logs
+*.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Generated ML artifacts
+artifacts/models/*.joblib
+artifacts/vectorstore/*.joblib
+artifacts/vectorstore/*.npy
+
+# Generated data outputs
+data/processed/*.parquet

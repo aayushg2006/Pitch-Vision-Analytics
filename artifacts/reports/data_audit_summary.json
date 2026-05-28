@@ -1,0 +1,65 @@
+{
+  "generated_at": "2026-05-28T10:56:10.133182+00:00",
+  "source_file": "data\\raw\\ipl-matches-dataset.csv",
+  "cleaning_script": "ml/scripts/clean_ipl_data.py",
+  "rows_in_raw": 289673,
+  "matches_in_dataset": 1218,
+  "seasons": [
+    "2007/08",
+    "2009",
+    "2009/10",
+    "2011",
+    "2012",
+    "2013",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020/21",
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "2025",
+    "2026"
+  ],
+  "mappings": {
+    "team_aliases": {
+      "Delhi Daredevils": "Delhi Capitals",
+      "Kings XI Punjab": "Punjab Kings",
+      "Rising Pune Supergiants": "Rising Pune Supergiant",
+      "Royal Challengers Bangalore": "Royal Challengers Bengaluru"
+    },
+    "venue_aliases": {
+      "M Chinnaswamy Stadium": "M. Chinnaswamy Stadium",
+      "M.Chinnaswamy Stadium": "M. Chinnaswamy Stadium",
+      "MA Chidambaram Stadium, Chepauk": "MA Chidambaram Stadium",
+      "Punjab Cricket Association IS Bindra Stadium, Mohali": "Punjab Cricket Association IS Bindra Stadium",
+      "Rajiv Gandhi International Stadium, Uppal": "Rajiv Gandhi International Stadium"
+    },
+    "city_aliases": {
+      "Bangalore": "Bengaluru"
+    }
+  },
+  "derived_fields": [
+    "season_year",
+    "season_label",
+    "legal_delivery",
+    "wicket_fell",
+    "bowler_wicket",
+    "runs_before",
+    "runs_after",
+    "legal_balls_before",
+    "wickets_before",
+    "current_rr_before",
+    "wickets_in_hand_before",
+    "phase",
+    "target_score",
+    "required_runs_before",
+    "required_rr_before",
+    "fielding_team",
+    "pressure_state"
+  ]
+}

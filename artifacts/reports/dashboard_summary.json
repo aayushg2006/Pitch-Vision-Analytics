@@ -1,0 +1,409 @@
+{
+  "generated_at": "2026-05-28T10:56:10.132460+00:00",
+  "scope": "All seasons in workspace dataset",
+  "toss_impact": [
+    {
+      "outcome": "Won toss",
+      "win_rate": 51.16,
+      "matches": 1202
+    },
+    {
+      "outcome": "Lost toss",
+      "win_rate": 48.84,
+      "matches": 1202
+    }
+  ],
+  "team_toss_impact": [
+    {
+      "team": "Chennai Super Kings",
+      "toss_won_matches": 129,
+      "toss_lost_matches": 132,
+      "win_pct_after_winning_toss": 60.47,
+      "win_pct_after_losing_toss": 52.27
+    },
+    {
+      "team": "Deccan Chargers",
+      "toss_won_matches": 43,
+      "toss_lost_matches": 32,
+      "win_pct_after_winning_toss": 44.19,
+      "win_pct_after_losing_toss": 31.25
+    },
+    {
+      "team": "Delhi Capitals",
+      "toss_won_matches": 144,
+      "toss_lost_matches": 128,
+      "win_pct_after_winning_toss": 46.53,
+      "win_pct_after_losing_toss": 42.97
+    },
+    {
+      "team": "Gujarat Lions",
+      "toss_won_matches": 14,
+      "toss_lost_matches": 15,
+      "win_pct_after_winning_toss": 71.43,
+      "win_pct_after_losing_toss": 20.0
+    },
+    {
+      "team": "Gujarat Titans",
+      "toss_won_matches": 34,
+      "toss_lost_matches": 36,
+      "win_pct_after_winning_toss": 67.65,
+      "win_pct_after_losing_toss": 55.56
+    },
+    {
+      "team": "Kochi Tuskers Kerala",
+      "toss_won_matches": 8,
+      "toss_lost_matches": 6,
+      "win_pct_after_winning_toss": 50.0,
+      "win_pct_after_losing_toss": 33.33
+    },
+    {
+      "team": "Kolkata Knight Riders",
+      "toss_won_matches": 131,
+      "toss_lost_matches": 137,
+      "win_pct_after_winning_toss": 54.2,
+      "win_pct_after_losing_toss": 48.18
+    },
+    {
+      "team": "Lucknow Super Giants",
+      "toss_won_matches": 28,
+      "toss_lost_matches": 38,
+      "win_pct_after_winning_toss": 53.57,
+      "win_pct_after_losing_toss": 44.74
+    },
+    {
+      "team": "Mumbai Indians",
+      "toss_won_matches": 155,
+      "toss_lost_matches": 128,
+      "win_pct_after_winning_toss": 54.19,
+      "win_pct_after_losing_toss": 54.69
+    },
+    {
+      "team": "Pune Warriors",
+      "toss_won_matches": 20,
+      "toss_lost_matches": 26,
+      "win_pct_after_winning_toss": 15.0,
+      "win_pct_after_losing_toss": 34.62
+    },
+    {
+      "team": "Punjab Kings",
+      "toss_won_matches": 125,
+      "toss_lost_matches": 145,
+      "win_pct_after_winning_toss": 44.8,
+      "win_pct_after_losing_toss": 47.59
+    },
+    {
+      "team": "Rajasthan Royals",
+      "toss_won_matches": 132,
+      "toss_lost_matches": 109,
+      "win_pct_after_winning_toss": 49.24,
+      "win_pct_after_losing_toss": 50.46
+    },
+    {
+      "team": "Rising Pune Supergiant",
+      "toss_won_matches": 13,
+      "toss_lost_matches": 17,
+      "win_pct_after_winning_toss": 61.54,
+      "win_pct_after_losing_toss": 41.18
+    },
+    {
+      "team": "Royal Challengers Bengaluru",
+      "toss_won_matches": 130,
+      "toss_lost_matches": 146,
+      "win_pct_after_winning_toss": 53.85,
+      "win_pct_after_losing_toss": 46.58
+    },
+    {
+      "team": "Sunrisers Hyderabad",
+      "toss_won_matches": 96,
+      "toss_lost_matches": 107,
+      "win_pct_after_winning_toss": 43.75,
+      "win_pct_after_losing_toss": 54.21
+    }
+  ],
+  "team_innings_impact": [
+    {
+      "team": "Chennai Super Kings",
+      "batting_first_matches": 142,
+      "bowling_first_matches": 118,
+      "win_pct_batting_first": 52.11,
+      "win_pct_bowling_first": 61.86
+    },
+    {
+      "team": "Deccan Chargers",
+      "batting_first_matches": 43,
+      "bowling_first_matches": 32,
+      "win_pct_batting_first": 41.86,
+      "win_pct_bowling_first": 34.38
+    },
+    {
+      "team": "Delhi Capitals",
+      "batting_first_matches": 118,
+      "bowling_first_matches": 153,
+      "win_pct_batting_first": 39.83,
+      "win_pct_bowling_first": 49.02
+    },
+    {
+      "team": "Gujarat Lions",
+      "batting_first_matches": 13,
+      "bowling_first_matches": 16,
+      "win_pct_batting_first": 7.69,
+      "win_pct_bowling_first": 75.0
+    },
+    {
+      "team": "Gujarat Titans",
+      "batting_first_matches": 30,
+      "bowling_first_matches": 40,
+      "win_pct_batting_first": 53.33,
+      "win_pct_bowling_first": 67.5
+    },
+    {
+      "team": "Kochi Tuskers Kerala",
+      "batting_first_matches": 7,
+      "bowling_first_matches": 7,
+      "win_pct_batting_first": 28.57,
+      "win_pct_bowling_first": 57.14
+    },
+    {
+      "team": "Kolkata Knight Riders",
+      "batting_first_matches": 128,
+      "bowling_first_matches": 140,
+      "win_pct_batting_first": 42.97,
+      "win_pct_bowling_first": 58.57
+    },
+    {
+      "team": "Lucknow Super Giants",
+      "batting_first_matches": 37,
+      "bowling_first_matches": 29,
+      "win_pct_batting_first": 54.05,
+      "win_pct_bowling_first": 41.38
+    },
+    {
+      "team": "Mumbai Indians",
+      "batting_first_matches": 146,
+      "bowling_first_matches": 137,
+      "win_pct_batting_first": 52.74,
+      "win_pct_bowling_first": 56.2
+    },
+    {
+      "team": "Pune Warriors",
+      "batting_first_matches": 20,
+      "bowling_first_matches": 25,
+      "win_pct_batting_first": 30.0,
+      "win_pct_bowling_first": 24.0
+    },
+    {
+      "team": "Punjab Kings",
+      "batting_first_matches": 141,
+      "bowling_first_matches": 128,
+      "win_pct_batting_first": 39.72,
+      "win_pct_bowling_first": 53.91
+    },
+    {
+      "team": "Rajasthan Royals",
+      "batting_first_matches": 110,
+      "bowling_first_matches": 130,
+      "win_pct_batting_first": 43.64,
+      "win_pct_bowling_first": 55.38
+    },
+    {
+      "team": "Rising Pune Supergiant",
+      "batting_first_matches": 15,
+      "bowling_first_matches": 15,
+      "win_pct_batting_first": 33.33,
+      "win_pct_bowling_first": 66.67
+    },
+    {
+      "team": "Royal Challengers Bengaluru",
+      "batting_first_matches": 141,
+      "bowling_first_matches": 135,
+      "win_pct_batting_first": 45.39,
+      "win_pct_bowling_first": 54.81
+    },
+    {
+      "team": "Sunrisers Hyderabad",
+      "batting_first_matches": 111,
+      "bowling_first_matches": 91,
+      "win_pct_batting_first": 46.85,
+      "win_pct_bowling_first": 52.75
+    }
+  ],
+  "team_milestone_impact": [
+    {
+      "team": "Chennai Super Kings",
+      "chasing_200_plus_matches": 15,
+      "defending_150_or_lower_matches": 37,
+      "win_pct_chasing_200_plus": 26.67,
+      "win_pct_defending_150_or_lower": 21.62
+    },
+    {
+      "team": "Deccan Chargers",
+      "chasing_200_plus_matches": 1,
+      "defending_150_or_lower_matches": 19,
+      "win_pct_chasing_200_plus": 0.0,
+      "win_pct_defending_150_or_lower": 31.58
+    },
+    {
+      "team": "Delhi Capitals",
+      "chasing_200_plus_matches": 27,
+      "defending_150_or_lower_matches": 35,
+      "win_pct_chasing_200_plus": 14.81,
+      "win_pct_defending_150_or_lower": 8.57
+    },
+    {
+      "team": "Gujarat Lions",
+      "chasing_200_plus_matches": 2,
+      "defending_150_or_lower_matches": 4,
+      "win_pct_chasing_200_plus": 0.0,
+      "win_pct_defending_150_or_lower": 0.0
+    },
+    {
+      "team": "Gujarat Titans",
+      "chasing_200_plus_matches": 11,
+      "defending_150_or_lower_matches": 5,
+      "win_pct_chasing_200_plus": 18.18,
+      "win_pct_defending_150_or_lower": 40.0
+    },
+    {
+      "team": "Kochi Tuskers Kerala",
+      "chasing_200_plus_matches": 0,
+      "defending_150_or_lower_matches": 4,
+      "win_pct_chasing_200_plus": 0.0,
+      "win_pct_defending_150_or_lower": 25.0
+    },
+    {
+      "team": "Kolkata Knight Riders",
+      "chasing_200_plus_matches": 21,
+      "defending_150_or_lower_matches": 40,
+      "win_pct_chasing_200_plus": 14.29,
+      "win_pct_defending_150_or_lower": 20.0
+    },
+    {
+      "team": "Lucknow Super Giants",
+      "chasing_200_plus_matches": 11,
+      "defending_150_or_lower_matches": 3,
+      "win_pct_chasing_200_plus": 27.27,
+      "win_pct_defending_150_or_lower": 0.0
+    },
+    {
+      "team": "Mumbai Indians",
+      "chasing_200_plus_matches": 25,
+      "defending_150_or_lower_matches": 37,
+      "win_pct_chasing_200_plus": 28.0,
+      "win_pct_defending_150_or_lower": 27.03
+    },
+    {
+      "team": "Pune Warriors",
+      "chasing_200_plus_matches": 1,
+      "defending_150_or_lower_matches": 11,
+      "win_pct_chasing_200_plus": 0.0,
+      "win_pct_defending_150_or_lower": 9.09
+    },
+    {
+      "team": "Punjab Kings",
+      "chasing_200_plus_matches": 29,
+      "defending_150_or_lower_matches": 45,
+      "win_pct_chasing_200_plus": 37.93,
+      "win_pct_defending_150_or_lower": 24.44
+    },
+    {
+      "team": "Rajasthan Royals",
+      "chasing_200_plus_matches": 21,
+      "defending_150_or_lower_matches": 36,
+      "win_pct_chasing_200_plus": 28.57,
+      "win_pct_defending_150_or_lower": 11.11
+    },
+    {
+      "team": "Rising Pune Supergiant",
+      "chasing_200_plus_matches": 1,
+      "defending_150_or_lower_matches": 2,
+      "win_pct_chasing_200_plus": 0.0,
+      "win_pct_defending_150_or_lower": 50.0
+    },
+    {
+      "team": "Royal Challengers Bengaluru",
+      "chasing_200_plus_matches": 23,
+      "defending_150_or_lower_matches": 32,
+      "win_pct_chasing_200_plus": 21.74,
+      "win_pct_defending_150_or_lower": 18.75
+    },
+    {
+      "team": "Sunrisers Hyderabad",
+      "chasing_200_plus_matches": 22,
+      "defending_150_or_lower_matches": 33,
+      "win_pct_chasing_200_plus": 27.27,
+      "win_pct_defending_150_or_lower": 33.33
+    }
+  ],
+  "phase_comparison": [
+    {
+      "phase": "powerplay",
+      "winners": 51.29,
+      "losers": 45.35
+    },
+    {
+      "phase": "middle",
+      "winners": 74.33,
+      "losers": 66.53
+    },
+    {
+      "phase": "death",
+      "winners": 47.24,
+      "losers": 43.24
+    }
+  ],
+  "top_batters": [
+    {
+      "rank": 1,
+      "name": "V Kohli",
+      "value": 9050
+    },
+    {
+      "rank": 2,
+      "name": "RG Sharma",
+      "value": 7269
+    },
+    {
+      "rank": 3,
+      "name": "S Dhawan",
+      "value": 6769
+    },
+    {
+      "rank": 4,
+      "name": "DA Warner",
+      "value": 6567
+    },
+    {
+      "rank": 5,
+      "name": "KL Rahul",
+      "value": 5680
+    }
+  ],
+  "top_bowlers": [
+    {
+      "rank": 1,
+      "name": "YS Chahal",
+      "value": 229
+    },
+    {
+      "rank": 2,
+      "name": "B Kumar",
+      "value": 215
+    },
+    {
+      "rank": 3,
+      "name": "SP Narine",
+      "value": 203
+    },
+    {
+      "rank": 4,
+      "name": "PP Chawla",
+      "value": 192
+    },
+    {
+      "rank": 5,
+      "name": "JJ Bumrah",
+      "value": 189
+    }
+  ],
+  "surprising_finding": "A first-innings score of 264 still was not safe in this dataset, because teams lost 2 matches after scoring 250-plus and the highest successful chase reached 265."
+}

@@ -1,0 +1,26 @@
+{
+  "generated_at": "2026-05-28T09:34:37.943595+00:00",
+  "first_innings": {
+    "holdout_seasons": [
+      2024,
+      2025,
+      2026
+    ],
+    "brier_score": 0.23724,
+    "roc_auc": 0.63725,
+    "baseline_brier_score": 0.24693
+  },
+  "second_innings": {
+    "holdout_seasons": [
+      2024,
+      2025,
+      2026
+    ],
+    "brier_score": 0.15099,
+    "roc_auc": 0.8755,
+    "baseline_brier_score": 0.24929
+  },
+  "vectorstore": {
+    "document_count": 1252
+  }
+}

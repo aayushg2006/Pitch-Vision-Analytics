@@ -1,0 +1,24 @@
+player_name,role,primary_skill,bowling_style,batting_style
+V Kohli,batter,top_order,none,right_hand
+RG Sharma,batter,top_order,off_break,right_hand
+S Dhawan,batter,top_order,none,left_hand
+DA Warner,batter,top_order,leg_break,left_hand
+KL Rahul,wicketkeeper_batter,top_order,none,right_hand
+MS Dhoni,wicketkeeper_batter,finisher,none,right_hand
+AB de Villiers,wicketkeeper_batter,finisher,right_arm_medium,right_hand
+CH Gayle,all_rounder,power_hitter,right_arm_off_break,left_hand
+SK Raina,batter,middle_order,right_arm_off_break,left_hand
+HH Pandya,all_rounder,finisher,right_arm_fast_medium,right_hand
+RA Jadeja,all_rounder,finisher,left_arm_orthodox,left_hand
+SP Narine,all_rounder,spin_bowling,right_arm_off_break,left_hand
+R Ashwin,bowler,spin_bowling,right_arm_off_break,right_hand
+YS Chahal,bowler,spin_bowling,right_arm_leg_break,right_hand
+JJ Bumrah,bowler,pace_bowling,right_arm_fast,right_hand
+B Kumar,bowler,pace_bowling,right_arm_medium_fast,right_hand
+SL Malinga,bowler,pace_bowling,right_arm_fast,right_hand
+Rashid Khan,bowler,spin_bowling,right_arm_leg_break,right_hand
+JJ Bumrah,bowler,pace_bowling,right_arm_fast,right_hand
+Mohammed Siraj,bowler,pace_bowling,right_arm_fast,right_hand
+CV Varun,bowler,spin_bowling,right_arm_mystery_spin,right_hand
+Arshdeep Singh,bowler,pace_bowling,left_arm_medium_fast,left_hand
+
