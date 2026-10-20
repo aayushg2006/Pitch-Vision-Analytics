@@ -42,6 +42,9 @@ class AnalyticsRepository:
     def read_vectorstore(self) -> dict[str, Any]:
         return joblib.load(self.settings.vectorstore_dir / "captain_vectorstore.joblib")
 
+    def chart_path(self, name: str) -> Path:
+        return self.settings.reports_dir / "charts" / f"{name}.png"
+
     def fetch_dataframe(self, sql: str, params: list[Any] | None = None) -> pd.DataFrame:
         return self.connection.execute(sql, params or []).df()
 

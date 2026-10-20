@@ -578,6 +578,88 @@ pre {
   margin-bottom: 1rem;
 }
 
+.sub-panel {
+  display: grid;
+  gap: 0.6rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border);
+}
+
+.image-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.image-card {
+  margin: 0;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.image-card img {
+  width: 100%;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+}
+
+.image-card figcaption {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.style-grid {
+  display: grid;
+  gap: 0.8rem;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.style-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 0.9rem;
+  display: grid;
+  gap: 0.35rem;
+}
+
+.style-card small {
+  color: var(--muted);
+}
+
+.rate-box {
+  display: grid;
+  gap: 0.45rem;
+  align-content: end;
+}
+
+.rate-box strong {
+  font-size: 1.3rem;
+  padding: 0.55rem 0;
+}
+
+.coach-action {
+  font-size: 1.6rem;
+  color: var(--accent);
+  margin: 0;
+}
+
+.tree-chart img {
+  width: 100%;
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  background: #0b192c;
+}
+
+.rules-block {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 0.9rem;
+  overflow-x: auto;
+  font-size: 0.84rem;
+}
+
 .error-card,
 .error-copy {
   color: var(--danger);
@@ -611,8 +693,13 @@ pre {
   .chart-grid,
   .table-grid,
   .two-column,
-  .proof-grid {
+  .proof-grid,
+  .image-grid {
     grid-template-columns: 1fr;
+  }
+
+  .style-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .hero {

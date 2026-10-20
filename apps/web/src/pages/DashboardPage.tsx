@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
+import { VisualInsights } from "../components/VisualInsights";
 import { api } from "../lib/api";
 import type {
   DashboardSummaryResponse,
@@ -245,6 +246,8 @@ export function DashboardPage() {
           </table>
         </article>
       </section>
+
+      <VisualInsights />
     </>
   );
 }

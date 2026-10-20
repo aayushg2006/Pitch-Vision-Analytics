@@ -19,6 +19,12 @@ class Settings:
     ollama_model: str
 
 
+def _client_ollama_host(raw: str) -> str:
+    # OLLAMA_HOST is also Ollama's own bind setting (e.g. "0.0.0.0:11434"), so turn it into a usable client URL.
+    host = raw if "://" in raw else f"http://{raw}"
+    return host.replace("://0.0.0.0", "://127.0.0.1").rstrip("/")
+
+
 @lru_cache
 def get_settings() -> Settings:
     root_dir = Path(__file__).resolve().parents[3]
@@ -32,7 +38,7 @@ def get_settings() -> Settings:
         reports_dir=artifacts_dir / "reports",
         models_dir=artifacts_dir / "models",
         vectorstore_dir=artifacts_dir / "vectorstore",
-        ollama_host=os.getenv("OLLAMA_HOST", "http://localhost:11434"),
-        ollama_model=os.getenv("OLLAMA_MODEL", "tinyllama"),
+        ollama_host=_client_ollama_host(os.getenv("OLLAMA_HOST", "http://localhost:11434")),
+        ollama_model=os.getenv("OLLAMA_MODEL", "auto"),
     )
 

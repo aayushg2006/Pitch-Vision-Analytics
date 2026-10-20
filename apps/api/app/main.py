@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-from fastapi import Depends, FastAPI
+from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 
 from .data_access import AnalyticsRepository, get_repository
 from .models import (
@@ -13,6 +14,7 @@ from .models import (
     HeadToHeadResponse,
     ImpactOptimizationRequest,
     ImpactOptimizationResponse,
+    InsightsResponse,
     OptionsResponse,
     PartnershipRequest,
     PartnershipResponse,
@@ -23,6 +25,7 @@ from .models import (
 )
 from .services.captain import chat_with_captain, get_captain_advice, optimize_impact
 from .services.dashboard import get_dashboard_summary, get_data_proof, get_options
+from .services.insights import get_chart_path, get_insights
 from .services.player_analytics import get_head_to_head, get_partnership, get_pressure_stats
 from .services.predictor import predict
 
@@ -55,6 +58,19 @@ def options(repository: AnalyticsRepository = Depends(get_repository)) -> Option
 @app.get("/api/v1/data-proof", response_model=DataProofResponse)
 def data_proof(repository: AnalyticsRepository = Depends(get_repository)) -> DataProofResponse:
     return get_data_proof(repository)
+
+
+@app.get("/api/v1/insights", response_model=InsightsResponse)
+def insights(repository: AnalyticsRepository = Depends(get_repository)) -> InsightsResponse:
+    return get_insights(repository)
+
+
+@app.get("/api/v1/insights/charts/{name}")
+def insight_chart(name: str, repository: AnalyticsRepository = Depends(get_repository)) -> FileResponse:
+    path = get_chart_path(repository, name)
+    if path is None:
+        raise HTTPException(status_code=404, detail="Chart not found")
+    return FileResponse(path, media_type="image/png")
 
 
 @app.post("/api/v1/predict", response_model=WinPredictResponse)

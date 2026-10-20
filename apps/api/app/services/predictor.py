@@ -5,7 +5,7 @@ import math
 import pandas as pd
 
 from ..data_access import AnalyticsRepository
-from ..models import WinPredictRequest, WinPredictResponse
+from ..models import ModelOpinion, ProjectedScore, WinPredictRequest, WinPredictResponse
 
 
 def _request_to_frame(payload: WinPredictRequest) -> pd.DataFrame:
@@ -53,13 +53,71 @@ def _top_factors(payload: WinPredictRequest, probability: float) -> list[str]:
     return factors[:3]
 
 
+def _projected_score(repository: AnalyticsRepository, payload: WinPredictRequest, frame: pd.DataFrame) -> ProjectedScore | None:
+    try:
+        bundle = repository.read_model_bundle("score_models")
+    except FileNotFoundError:
+        return None
+    features = frame[bundle["features"]]
+    simple = bundle["simple"]
+    return ProjectedScore(
+        linear_regression=round(max(float(bundle["multiple"].predict(features)[0]), payload.current_score), 1),
+        svr=round(max(float(bundle["svr"].predict(features)[0]), payload.current_score), 1),
+        rule_of_thumb=f"Final score ≈ {simple.intercept_:.0f} + {simple.coef_[0]:.2f} × runs at 10 overs",
+    )
+
+
+def _trim(value: float, decimals: int = 2) -> str:
+    return f"{value:.{decimals}f}".rstrip("0").rstrip(".")
+
+
+def _describe_tree_path(tree, features: pd.DataFrame, labels: list[str]) -> list[str]:
+    nodes = tree.decision_path(features).indices
+    leaf = int(tree.apply(features)[0])
+    steps: list[str] = []
+    for node in nodes:
+        if node == leaf:
+            continue
+        index = tree.tree_.feature[node]
+        threshold = tree.tree_.threshold[node]
+        value = float(features.iloc[0, index])
+        sign = "≤" if value <= threshold else ">"
+        decimals = next((places for places in (2, 3, 4) if _trim(value, places) != _trim(threshold, places)), 4)
+        steps.append(f"{labels[index]} is {_trim(value, decimals)} ({sign} {_trim(threshold, decimals)})")
+    chase_rate = float(tree.predict_proba(features)[0, 1]) * 100
+    steps.append(f"Chasing sides in this situation won {chase_rate:.0f}% of the time.")
+    return steps
+
+
+def _chase_opinions(
+    repository: AnalyticsRepository, frame: pd.DataFrame
+) -> tuple[list[ModelOpinion] | None, list[str] | None]:
+    row = frame.iloc[0]
+    if not row["required_runs_before"] or not row["remaining_balls_before"]:
+        return None, None
+    try:
+        bundle = repository.read_model_bundle("chase_models")
+    except FileNotFoundError:
+        return None, None
+    features = frame[bundle["features"]].astype(float)
+    opinions = [
+        ModelOpinion(model=name, probability=round(float(model.predict_proba(features)[0, 1]) * 100, 2))
+        for name, model in bundle["models"].items()
+        if name != "Logistic Regression"
+    ]
+    labels = [bundle["feature_labels"][name] for name in bundle["features"]]
+    return opinions, _describe_tree_path(bundle["models"]["Decision Tree"], features, labels)
+
+
 def predict(repository: AnalyticsRepository, payload: WinPredictRequest) -> WinPredictResponse:
     bundle_name = "first_innings_model" if payload.innings == 1 else "second_innings_model"
     bundle = repository.read_model_bundle(bundle_name)
-    frame = _request_to_frame(payload)
+    full_frame = _request_to_frame(payload)
     expected_columns = bundle["numeric_features"] + bundle["categorical_features"]
-    frame = frame[expected_columns]
+    frame = full_frame[expected_columns]
     probability = float(bundle["model"].predict_proba(frame)[0, 1])
+    projected_score = _projected_score(repository, payload, full_frame) if payload.innings == 1 else None
+    model_opinions, decision_path = _chase_opinions(repository, full_frame) if payload.innings == 2 else (None, None)
     confidence_width = 0.08 if 0.35 <= probability <= 0.65 else 0.05
     lower = max(probability - confidence_width, 0.0)
     upper = min(probability + confidence_width, 1.0)
@@ -73,5 +131,8 @@ def predict(repository: AnalyticsRepository, payload: WinPredictRequest) -> WinP
         top_factors=_top_factors(payload, probability),
         model_version=bundle["model_version"],
         evaluation_stamp=stamp,
+        projected_score=projected_score,
+        model_opinions=model_opinions,
+        decision_path=decision_path,
     )
 

@@ -7,6 +7,7 @@ import type {
   HeadToHeadResponse,
   ImpactOptimizationRequest,
   ImpactOptimizationResponse,
+  InsightsResponse,
   OptionsResponse,
   PartnershipRequest,
   PartnershipResponse,
@@ -31,10 +32,13 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
   return (await response.json()) as T;
 }
 
+export const chartUrl = (name: string) => `${API_BASE_URL}/insights/charts/${name}`;
+
 export const api = {
   getDashboardSummary: () => request<DashboardSummaryResponse>("/dashboard/summary"),
   getOptions: () => request<OptionsResponse>("/options"),
   getDataProof: () => request<DataProofResponse>("/data-proof"),
+  getInsights: () => request<InsightsResponse>("/insights"),
   predict: (payload: WinPredictRequest) =>
     request<WinPredictResponse>("/predict", { method: "POST", body: JSON.stringify(payload) }),
   headToHead: (payload: HeadToHeadRequest) =>

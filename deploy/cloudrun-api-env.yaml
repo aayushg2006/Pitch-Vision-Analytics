@@ -1,4 +1,0 @@
-APP_DATA_DIR: /workspace/data
-APP_ARTIFACTS_DIR: /workspace/artifacts
-OLLAMA_HOST: https://pitch-vision-ollama-729436216540.asia-south1.run.app
-OLLAMA_MODEL: tinyllama

@@ -4,6 +4,7 @@ const tabs = [
   { to: "/", label: "Dashboard" },
   { to: "/predictor", label: "Win Predictor" },
   { to: "/matchups", label: "Matchups" },
+  { to: "/styles", label: "Player Styles" },
   { to: "/clutch", label: "Clutch Mode" },
   { to: "/captain", label: "Captain AI" },
   { to: "/impact", label: "Impact Lab" },

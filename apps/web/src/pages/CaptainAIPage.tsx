@@ -412,7 +412,10 @@ export function CaptainAIPage() {
                 <article key={`${item.over_number}-${item.phase}`} className="plan-card">
                   <span className="plan-over">Over {item.over_number}</span>
                   <strong>{item.recommended_bowler ?? "No qualified option"}</strong>
-                  <span className="plan-phase">{item.phase}</span>
+                  <span className="plan-phase">
+                    {item.phase}
+                    {item.bowler_type ? ` · ${item.bowler_type}` : ""}
+                  </span>
                   <p>{item.reason}</p>
                   <small className="helper-copy">
                     Confidence {(item.confidence * 100).toFixed(0)}%

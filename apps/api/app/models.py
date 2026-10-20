@@ -102,6 +102,17 @@ class WinPredictRequest(BaseModel):
     venue: str
 
 
+class ProjectedScore(BaseModel):
+    linear_regression: float
+    svr: float
+    rule_of_thumb: str
+
+
+class ModelOpinion(BaseModel):
+    model: str
+    probability: float
+
+
 class WinPredictResponse(BaseModel):
     win_probability: float
     confidence_band: tuple[float, float]
@@ -109,6 +120,9 @@ class WinPredictResponse(BaseModel):
     top_factors: list[str]
     model_version: str
     evaluation_stamp: str
+    projected_score: ProjectedScore | None = None
+    model_opinions: list[ModelOpinion] | None = None
+    decision_path: list[str] | None = None
 
 
 class HeadToHeadRequest(BaseModel):
@@ -172,6 +186,7 @@ class CaptainPlanOver(BaseModel):
     over_number: int
     phase: str
     recommended_bowler: str | None = None
+    bowler_type: str | None = None
     confidence: float
     debut_exception_used: bool = False
     reason: str
@@ -226,3 +241,141 @@ class ImpactOptimizationResponse(BaseModel):
     best_gain: float
     assumption_note: str
     scenarios: list[ImpactScenario]
+
+
+class ChartInfo(BaseModel):
+    name: str
+    title: str
+    description: str
+
+
+class RegressionMetrics(BaseModel):
+    r2: float
+    mae: float
+    rmse: float
+
+
+class SimpleRegressionReport(RegressionMetrics):
+    intercept: float
+    slope: float
+
+
+class MultipleRegressionReport(RegressionMetrics):
+    intercept: float
+    coefficients: dict[str, float]
+
+
+class ScoreModelsReport(BaseModel):
+    holdout_seasons: list[int]
+    simple: SimpleRegressionReport
+    multiple: MultipleRegressionReport
+    svr: RegressionMetrics
+
+
+class ClassificationMetrics(BaseModel):
+    accuracy: float
+    roc_auc: float
+
+
+class LeaderboardRow(ClassificationMetrics):
+    model: str
+
+
+class TuningRow(BaseModel):
+    model: str
+    method: str
+    best_params: dict[str, float | int | str]
+    before: ClassificationMetrics
+    after: ClassificationMetrics
+
+
+class ChaseModelsReport(BaseModel):
+    holdout_seasons: list[int]
+    features: list[str]
+    leaderboard: list[LeaderboardRow]
+    tuning: list[TuningRow]
+    tree_chart: str | None = None
+    tree_rules: str
+
+
+class FreakInnings(BaseModel):
+    batting_team: str
+    fielding_team: str
+    venue: str
+    season: int
+    innings: int
+    score: str
+    run_rate: float
+    fours: int
+    sixes: int
+    anomaly_score: float
+
+
+class ElbowPoint(BaseModel):
+    k: int
+    inertia: float
+
+
+class BatterCluster(BaseModel):
+    cluster: int
+    style: str
+    size: int
+    centroid: dict[str, float]
+    top_players: list[str]
+
+
+class BatterPoint(BaseModel):
+    player: str
+    style: str
+    x: float
+    y: float
+    strike_rate: float
+    average: float
+
+
+class BatterStylesReport(BaseModel):
+    k: int
+    features: list[str]
+    elbow: list[ElbowPoint]
+    explained_variance: list[float]
+    clusters: list[BatterCluster]
+    points: list[BatterPoint]
+
+
+class CoachPolicyRow(BaseModel):
+    balls_left: str
+    required_rate: str
+    wickets_in_hand: str
+    best_action: str
+    q_values: dict[str, float]
+    visits: int
+
+
+class LearningPoint(BaseModel):
+    episode: int
+    win_rate: float
+
+
+class ChaseCoachReport(BaseModel):
+    episodes: int
+    actions: list[str]
+    balls_buckets: list[str]
+    rate_buckets: list[str]
+    wickets_buckets: list[str]
+    balls_edges: list[int]
+    rate_edges: list[float]
+    wickets_edges: list[int]
+    outcome_probabilities: dict[str, dict[str, dict[str, float]]]
+    policy: list[CoachPolicyRow]
+    test_chases: int
+    learning_curve: list[LearningPoint]
+
+
+class InsightsResponse(BaseModel):
+    generated_at: str
+    charts: list[ChartInfo]
+    score_models: ScoreModelsReport
+    chase_models: ChaseModelsReport
+    freak_innings: list[FreakInnings]
+    batter_styles: BatterStylesReport
+    chase_coach: ChaseCoachReport

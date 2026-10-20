@@ -95,6 +95,17 @@ export type WinPredictRequest = {
   venue: string;
 };
 
+export type ProjectedScore = {
+  linear_regression: number;
+  svr: number;
+  rule_of_thumb: string;
+};
+
+export type ModelOpinion = {
+  model: string;
+  probability: number;
+};
+
 export type WinPredictResponse = {
   win_probability: number;
   confidence_band: [number, number];
@@ -102,6 +113,9 @@ export type WinPredictResponse = {
   top_factors: string[];
   model_version: string;
   evaluation_stamp: string;
+  projected_score?: ProjectedScore | null;
+  model_opinions?: ModelOpinion[] | null;
+  decision_path?: string[] | null;
 };
 
 export type HeadToHeadRequest = {
@@ -180,6 +194,7 @@ export type CaptainPlanOver = {
   over_number: number;
   phase: string;
   recommended_bowler?: string | null;
+  bowler_type?: string | null;
   confidence: number;
   debut_exception_used: boolean;
   reason: string;
@@ -219,4 +234,106 @@ export type ImpactOptimizationResponse = {
   best_gain: number;
   assumption_note: string;
   scenarios: ImpactScenario[];
+};
+
+export type ChartInfo = {
+  name: string;
+  title: string;
+  description: string;
+};
+
+export type RegressionMetrics = {
+  r2: number;
+  mae: number;
+  rmse: number;
+};
+
+export type ClassificationMetrics = {
+  accuracy: number;
+  roc_auc: number;
+};
+
+export type FreakInnings = {
+  batting_team: string;
+  fielding_team: string;
+  venue: string;
+  season: number;
+  innings: number;
+  score: string;
+  run_rate: number;
+  fours: number;
+  sixes: number;
+  anomaly_score: number;
+};
+
+export type BatterPoint = {
+  player: string;
+  style: string;
+  x: number;
+  y: number;
+  strike_rate: number;
+  average: number;
+};
+
+export type CoachPolicyRow = {
+  balls_left: string;
+  required_rate: string;
+  wickets_in_hand: string;
+  best_action: string;
+  q_values: Record<string, number>;
+  visits: number;
+};
+
+export type InsightsResponse = {
+  generated_at: string;
+  charts: ChartInfo[];
+  score_models: {
+    holdout_seasons: number[];
+    simple: RegressionMetrics & { intercept: number; slope: number };
+    multiple: RegressionMetrics & { intercept: number; coefficients: Record<string, number> };
+    svr: RegressionMetrics;
+  };
+  chase_models: {
+    holdout_seasons: number[];
+    features: string[];
+    leaderboard: Array<ClassificationMetrics & { model: string }>;
+    tuning: Array<{
+      model: string;
+      method: string;
+      best_params: Record<string, number | string>;
+      before: ClassificationMetrics;
+      after: ClassificationMetrics;
+    }>;
+    tree_chart?: string | null;
+    tree_rules: string;
+  };
+  freak_innings: FreakInnings[];
+  batter_styles: {
+    k: number;
+    features: string[];
+    elbow: Array<{ k: number; inertia: number }>;
+    explained_variance: number[];
+    clusters: Array<{
+      cluster: number;
+      style: string;
+      size: number;
+      centroid: Record<string, number>;
+      top_players: string[];
+    }>;
+    points: BatterPoint[];
+  };
+  chase_coach: {
+    episodes: number;
+    actions: string[];
+    balls_buckets: string[];
+    rate_buckets: string[];
+    wickets_buckets: string[];
+    balls_edges: number[];
+    rate_edges: number[];
+    wickets_edges: number[];
+    outcome_probabilities: Record<string, Record<string, Record<string, number>>>;
+    policy: CoachPolicyRow[];
+    test_chases: number;
+    learning_curve: Array<{ episode: number; win_rate: number }>;
+  };
 };

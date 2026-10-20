@@ -7,6 +7,7 @@ import { DashboardPage } from "./pages/DashboardPage";
 import { DataProofPage } from "./pages/DataProofPage";
 import { ImpactLabPage } from "./pages/ImpactLabPage";
 import { MatchupsPage } from "./pages/MatchupsPage";
+import { PlayerStylesPage } from "./pages/PlayerStylesPage";
 import { WinPredictorPage } from "./pages/WinPredictorPage";
 
 export default function App() {
@@ -17,6 +18,7 @@ export default function App() {
           <Route index element={<DashboardPage />} />
           <Route path="predictor" element={<WinPredictorPage />} />
           <Route path="matchups" element={<MatchupsPage />} />
+          <Route path="styles" element={<PlayerStylesPage />} />
           <Route path="clutch" element={<ClutchModePage />} />
           <Route path="captain" element={<CaptainAIPage />} />
           <Route path="impact" element={<ImpactLabPage />} />

@@ -146,6 +146,53 @@ export function WinPredictorPage() {
                 <li key={factor}>{factor}</li>
               ))}
             </ul>
+            {result.projected_score ? (
+              <div className="sub-panel">
+                <p className="eyebrow">Projected Final Score</p>
+                <div className="mini-stats">
+                  <div>
+                    <span>Linear Regression</span>
+                    <strong>{Math.round(result.projected_score.linear_regression)}</strong>
+                  </div>
+                  <div>
+                    <span>Support Vector Regression</span>
+                    <strong>{Math.round(result.projected_score.svr)}</strong>
+                  </div>
+                </div>
+                <p className="footnote">Rule of thumb: {result.projected_score.rule_of_thumb}</p>
+              </div>
+            ) : null}
+            {result.model_opinions ? (
+              <div className="sub-panel">
+                <p className="eyebrow">Second Opinions</p>
+                <table className="stat-table">
+                  <thead>
+                    <tr>
+                      <th>Model</th>
+                      <th>Chase win chance</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {result.model_opinions.map((opinion) => (
+                      <tr key={opinion.model}>
+                        <td>{opinion.model}</td>
+                        <td>{opinion.probability.toFixed(1)}%</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : null}
+            {result.decision_path ? (
+              <div className="sub-panel">
+                <p className="eyebrow">Decision Path</p>
+                <ol className="insight-list">
+                  {result.decision_path.map((step) => (
+                    <li key={step}>{step}</li>
+                  ))}
+                </ol>
+              </div>
+            ) : null}
             <p className="footnote">{result.evaluation_stamp}</p>
           </>
         ) : (

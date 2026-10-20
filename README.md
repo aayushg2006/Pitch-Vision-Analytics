@@ -10,15 +10,17 @@ Pitch Vision Analytics is an IPL-focused AI/ML analytics engine built on ball-by
 - Clutch Mode with Pressure-Resilience Index (PRI)
 - Captain AI with phase-aware bowling recommendations
 - Impact Lab for tactical substitution timing
-- Data Proof outputs for cleaning and audit traceability
+- Player Styles: batter clustering with a 2-D style map
+- Chase Coach: a reinforcement-learning agent for chase strategy across all 20 overs
+- Data Proof outputs for cleaning, audit and model traceability
 
 ## Tech Stack
 
 - Frontend: `React`, `TypeScript`, `Vite`
 - Backend: `FastAPI`, `Python`
-- Data and ML: `Pandas`, `NumPy`, model artifacts, Parquet marts
-- Tactical assistant: `Ollama` with `TinyLlama` for local grounded generation
-- Deployment: `Docker Compose`
+- Data and ML: `Pandas`, `NumPy`, `scikit-learn`, `XGBoost`, `Matplotlib`, `Seaborn`, Parquet marts
+- Tactical assistant (optional): any `Ollama` model already installed locally
+- Runs fully locally: no cloud or container setup needed
 
 ## Project Structure
 
@@ -37,7 +39,6 @@ Pitch Vision Analytics is an IPL-focused AI/ML analytics engine built on ball-by
 |   |-- reports/             # Dashboard summary and audit proof
 |   `-- vectorstore/         # Retrieval artifacts for Captain AI
 |-- tests/                   # API and pipeline tests
-|-- docker-compose.yml
 `-- README.md
 ```
 
@@ -51,12 +52,16 @@ Pitch Vision Analytics is an IPL-focused AI/ML analytics engine built on ball-by
 - Phase-wise winner vs loser scoring comparison
 - Top batters and top bowlers leaderboard
 - Surprising finding generated from the dataset
+- Visual Insights gallery (Seaborn charts of phases, toss, correlations, season trends)
+- Freak Innings detector for the most unusual innings in IPL history
 
 ### Win Predictor
 
 - Live innings-state prediction
 - Works for both first innings and chase situations
 - Returns calibrated win probability and confidence band
+- First innings: projected final score from Linear Regression and SVR
+- Chase: second opinions from Decision Tree, SVM, AdaBoost and XGBoost, plus the decision-tree path behind the call
 
 ### Matchups
 
@@ -69,11 +74,27 @@ Pitch Vision Analytics is an IPL-focused AI/ML analytics engine built on ball-by
 - PRI is computed from high-pressure match states
 - Eligibility currently requires at least `50` pressure innings
 
+### Player Styles
+
+- Batters with 300+ balls grouped into 4 styles (Power-hitter, Anchor, Accumulator, Grinder)
+- 2-D style map of every batter, with an elbow chart explaining the choice of 4 groups
+
+### Chase Coach (in Clutch Mode)
+
+- Enter exact balls left (1-120), runs needed and wickets in hand
+- The coach recommends Defend, Rotate or Attack with a win chance for each, flags close calls and rarely seen situations, and shows its learning curve on fixed test chases
+
 ### Captain AI
 
 - Team-scoped player selection with all-player fallback
 - Next-over bowling planning with legal overs remaining
 - Phase-aware, sample-aware, non-consecutive bowling suggestions
+
+### Data Proof
+
+- Cleaning lineage and audit summary
+- Chase model leaderboard, before/after hyperparameter tuning and score-model error metrics
+- Readable decision-tree rules
 
 ### Impact Lab
 
@@ -82,39 +103,13 @@ Pitch Vision Analytics is an IPL-focused AI/ML analytics engine built on ball-by
 
 ## Running the Project
 
-### Option 1: Docker Compose
+Everything runs on your machine.
 
-Start the app from the project root:
-
-```powershell
-$env:DOCKER_BUILDKIT='0'
-$env:COMPOSE_DOCKER_CLI_BUILD='0'
-docker compose up --build -d
-```
-
-Open:
-
-- Frontend: `http://localhost:4173`
-- API docs: `http://localhost:8000/docs`
-
-To stop the stack:
+Create a virtual environment and install backend dependencies:
 
 ```powershell
-docker compose down
-```
-
-Optional LLM services:
-
-```powershell
-docker compose --profile llm up -d
-```
-
-### Option 2: Local Development
-
-Install backend dependencies:
-
-```powershell
-python -m pip install -r apps/api/requirements.txt
+python -m venv .venv313
+.\.venv313\Scripts\python -m pip install -r apps/api/requirements.txt
 ```
 
 Install frontend dependencies:
@@ -123,13 +118,13 @@ Install frontend dependencies:
 npm install
 ```
 
-Build processed data and model artifacts:
+Build processed data, models, charts and ML insights (about 1–2 minutes):
 
 ```powershell
-python ml/scripts/build_all.py
+.\.venv313\Scripts\python ml/scripts/build_all.py
 ```
 
-Run the API:
+Run the API (with the virtual environment activated):
 
 ```powershell
 npm run api:dev
@@ -140,6 +135,15 @@ Run the frontend in another terminal:
 ```powershell
 npm run web:dev
 ```
+
+Open:
+
+- Frontend: `http://localhost:4173`
+- API docs: `http://localhost:8000/docs`
+
+### Optional: Captain AI with Ollama
+
+If Ollama is running locally, Captain AI automatically uses a model that is already installed (it prefers `tinyllama`, then `llama3.2:1b`, then `qwen2.5:3b`, otherwise the first installed model). It never downloads a model. Set `OLLAMA_MODEL` to force a specific installed model. Without Ollama, Captain AI falls back to its rule-based answer.
 
 ## Available Scripts
 
@@ -157,6 +161,7 @@ The pipeline is centered around:
 
 - `ml/scripts/clean_ipl_data.py`
 - `ml/scripts/train_models.py`
+- `ml/scripts/train_insights.py`
 - `ml/scripts/build_all.py`
 
 It performs:
@@ -167,6 +172,22 @@ It performs:
 - pressure tables for PRI
 - model artifact generation
 - report generation for audit and proof
+- charts, score/chase models, clustering, anomaly detection and the RL chase coach (`artifacts/reports/model_insights.json`)
+
+## Machine Learning Techniques
+
+| Feature in the app | Technique |
+|---|---|
+| Visual Insights (Dashboard) | NumPy, Pandas, Matplotlib, Seaborn |
+| Projected Final Score (Win Predictor) | Simple and Multiple Linear Regression |
+| Live Win Predictor | Logistic Regression with ROC-AUC / Brier evaluation |
+| Decision Path + rules (Win Predictor, Data Proof) | Decision Tree |
+| SVM second opinion, SVR projected score, Freak Innings | SVC, SVR, One-Class SVM (outlier detection) |
+| Second opinions + model leaderboard | AdaBoost, XGBoost |
+| Batter Styles (Player Styles) | K-Means Clustering (elbow method) |
+| Style Map (Player Styles) | PCA (2 components) |
+| Chase Coach (Clutch Mode) | Reinforcement Learning (tabular Q-learning) |
+| Before vs after tuning (Data Proof) | GridSearchCV, RandomizedSearchCV |
 
 ## Testing
 
